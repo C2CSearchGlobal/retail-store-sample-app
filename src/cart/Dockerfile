@@ -56,7 +56,6 @@ RUN curl -L https://github.com/aws-observability/aws-otel-java-instrumentation/r
 ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/aws-opentelemetry-agent.jar
 ENV OTEL_JAVAAGENT_ENABLED=true
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://adot-collector.other:4317
-ENV OTEL_RESOURCE_ATTRIBUTES=service.namespace=orders,service.name=orders
 
 WORKDIR /app
 USER appuser
