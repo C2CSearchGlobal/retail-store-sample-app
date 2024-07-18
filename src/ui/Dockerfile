@@ -52,7 +52,11 @@ RUN useradd \
 RUN curl -L https://github.com/aws-observability/aws-otel-java-instrumentation/releases/download/v${aws_opentelemetry_agent_version}/aws-opentelemetry-agent.jar -o /opt/aws-opentelemetry-agent.jar && \
     curl -L https://raw.githubusercontent.com/aws-observability/aws-otel-java-instrumentation/v${aws_opentelemetry_agent_version}/licenses/licenses.md -o aws-opentelemetry-agent-licenses.md
 ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/aws-opentelemetry-agent.jar
-ENV OTEL_JAVAAGENT_ENABLED=false
+ENV OTEL_JAVAAGENT_ENABLED true
+ENV OTEL_PROPAGATORS "tracecontext,baggage,xray"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT "http://adot-collector.other:4317"
+ENV OTEL_METRICS_EXPORTER none
+ENV OTEL_RESOURCE_ATTRIBUTES "service.namespace=ui,service.name=ui"
 
 WORKDIR /app
 USER appuser
